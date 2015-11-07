@@ -11,15 +11,19 @@ set laststatus=2                " Always show the status line
 "let mapleader = ","             " With a map leader it's possible to do extra key combinations
 "let g:mapleader = ","
 " Making it so . works like : for commands. Saves typing and eliminates :W style typos due to lazy holding shift.
-nnoremap , :
+nnoremap . :
 
 " Color/Highlighting options
 colorscheme molokai             " set molokai as the default color scheme
 set cursorline                  " highlight current line
 " highlight bg color of current line
-hi cursorline guibg=#333333
+hi CursorLine guibg=#333333 ctermbg=lightred guifg=white ctermfg=white
 " highlight cursor
-hi CursorColumn guibg=#333333
+hi CursorColumn guibg=#333333 guifg=white
+hi Normal ctermfg=white ctermbg=black guifg=white
+" darkening Function and Identifier background colour if any
+hi Function guifg=white ctermfg=white guibg=black ctermbg=black
+hi Identifier guifg=white ctermfg=white guibg=black ctermbg=black
 
 " Ruler options
 if has('cmdline_info')
@@ -38,9 +42,9 @@ set smarttab                    " Be smart when using tabs
 set tabstop=4                   " an indentation every four columns
 set softtabstop=4               " let backspace delete indent
 set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
-" Linebreak on 80 characters
+" Linebreak on 120 characters
 set lbr
-set tw=80
+set tw=120
 
 " Language options
 set spelllang=en_gb             " setting the spell language as British
@@ -68,7 +72,7 @@ set foldenable                  " auto fold code
 set gdefault                    " the /g flag on :s substitutions by default
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
-set lazyredraw                  " Don't redraw while executing macros (good performance config)
+set lazyredraw                  " don't redraw while executing macros (good performance config)
 
 " Sound options
 " No annoying sound on errors
@@ -81,3 +85,45 @@ set tm=500
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
+
+" Select text inside a block
+nnoremap % v%
+
+" Shortcut to delete next word and trailing space
+imap <C-D> jkdawi
+
+" Auto-complete with <ESC>
+inoremap <ESC> <C-N>
+
+"Return to normal mode. If used on normal mode it will have no effect on the cursor position
+inoremap jk <ESC>
+
+" Reload Vim runtime configuration
+" normal mode
+nmap rel. :so $MYVIMRC<CR>
+"insert mode
+imap rel. jk:so $MYVIMRC<CR>
+
+" Perl only configurations
+" autocmd BufNewFile,BufRead *.pl,*.pm set filetype=perl " uncomment if filetype plugin not found
+" auto-indent before saving file
+" autocmd Filetype perl autocmd BufWritePre :normal! gg=G
+" autocmd BufWritePre *.pl,*.pm :normal! gg=G``
+imap <F3> jk:w<CR>
+imap <F3> :silent !perl /usr/local/bin/perltidy -l=120 -b -bext='/' %<CR>
+" Enable Perl syntax highlight for test files
+autocmd BufNewFile,BufRead *.t set filetype=perl
+" Hash separator helper
+imap <C-L> <SPACE>=><SPACE>
+
+" for block
+"imap <buffer> ;fo <C-O>mzfor my $%%% (%%%) {<CR>%%%<CR>}<CR><C-O>;;
+"imap <buffer> ;; <C-O>/%%%<CR><C-O>
+"nmap <buffer> ;; /%%%<CR>
+
+" if block
+"imap <buffer> ;if <C-O>mzif (%%%) {<CR>%%%<CR>}<CR><C-O>;;
+
+" Add custom vimfiles folder if has no permissions to edit the installation folder
+"set rtpt=/Users/hugoareias/.vimrc
+
