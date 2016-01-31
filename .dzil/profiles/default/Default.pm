@@ -1,9 +1,10 @@
 package {{$name}};
 
-# ABSTRACT: {{$name}}
-
 use strict;
 use warnings;
+use English -no_match_vars;
+
+# ABSTRACT: {{$name}}
 
 =head1 SYNOPSIS
 
