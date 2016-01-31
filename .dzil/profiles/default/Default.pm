@@ -1,8 +1,12 @@
 package {{$name}};
 
-use strict;
-use warnings;
+#use strict;
+#use warnings;
+
+use strictures;
 use English -no_match_vars;
+use Devel::Confess;
+use Data::Dumper;
 
 # ABSTRACT: {{$name}}
 
