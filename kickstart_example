@@ -1,0 +1,29 @@
+install
+text
+network --bootproto dhcp
+lang en_GB
+keyboard uk
+zerombr
+clearpart --all
+bootloader --location mbr
+timezone --utc Atlantic/Reykjavik
+auth --enableshadow --passalgo=sha256
+selinux --permissive
+reboot
+firewall --disabled
+skipx
+
+%packages 
+@ Base
+osad
+rhncfg
+rhncfg-actions
+rhncfg-client
+rhn-setup
+puppet
+perl
+wget
+rhn-setup
+rhn-check
+rhn-client-tools
+%end
